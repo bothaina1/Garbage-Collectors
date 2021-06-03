@@ -2,19 +2,20 @@ package com.company;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Scanner;
+import java.util.Stack;
 
 public class controller {
     Queue<Integer> roots;
     Heap heap;
-    LinkedList<Node> blocks;
     compactGarbageCollector compact;
     copyGarbageColllector copy;
 
     public controller(File rootFile, File heapFile, File pointerFile) throws FileNotFoundException {
         roots=new PriorityQueue<>();
         heap =new Heap();
-        blocks=new LinkedList<>();
         this.setRoots(rootFile);
         this.setHeap(heapFile,pointerFile);
 
@@ -29,8 +30,6 @@ public class controller {
             int value= Integer.parseInt(sc.next().replaceAll("[\\D]", ""));
             int memoryStart=Integer.parseInt(sc.next().replaceAll("[\\D]", ""));
             int memoryEnd=Integer.parseInt(sc.next().replaceAll("[\\D]", ""));
-            Node block=new Node(value,memoryStart,memoryEnd);
-            blocks.add(block);
             heap.addVertex(value,memoryStart,memoryEnd);
 
         }
@@ -55,10 +54,10 @@ public class controller {
 
     }
     public void getCopyHeap(){
-        copy=new copyGarbageColllector(heap,roots,blocks);
+        copy=new copyGarbageColllector(heap,roots);
     }
     public void getCompactHeap(){
-        compact=new compactGarbageCollector(heap,roots,blocks);
+        compact=new compactGarbageCollector(heap,roots);
     }
 
 }
