@@ -6,8 +6,10 @@ public class Node {
     int memoryEnd;
     boolean garbٍage;
 
-    public Node(int value){
+    public Node(int value,int memoryStart,int memoryEnd){
         this.value=value;
+        this.memoryStart=memoryStart;
+        this.memoryEnd=memoryEnd;
         garbٍage=true;
     }
 
