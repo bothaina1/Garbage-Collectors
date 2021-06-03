@@ -27,6 +27,14 @@ public class compact {
           heap.addVertex(value,memoryStart,memoryEnd);
         }
         sc.close();
+        sc = new Scanner(pointerFile);
+        while (sc.hasNext())  //returns a boolean value
+        {
+            int parent=Integer.parseInt(sc.next());
+            int child=Integer.parseInt(sc.next());
+            heap.addEdge(parent,child);
+        }
+        sc.close();
 
     }
     public void setRoots(File rootFile) throws FileNotFoundException {

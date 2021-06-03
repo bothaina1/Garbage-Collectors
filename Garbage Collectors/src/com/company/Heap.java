@@ -23,9 +23,9 @@ public class Heap {
         adjNodes.remove(new Node(label));
     }
 
-    void addEdge(int label1, int label2) {
-        Node v1 = new Node(label1);
-        Node v2 = new Node(label2);
+    void addEdge(int value1, int value2) {
+        Node v1 = new Node(value1);
+        Node v2 = new Node(value2);
         adjNodes.get(v1).add(v2);
         adjNodes.get(v2).add(v1);
     }
