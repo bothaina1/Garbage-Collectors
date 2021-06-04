@@ -18,7 +18,7 @@ public class controller {
         heap =new Heap();
         this.setRoots(rootFile);
         this.setHeap(heapFile,pointerFile);
-        getCompactHeap();
+
 
     }
 
@@ -56,15 +56,11 @@ public class controller {
     }
 
 
-    public void getCompactHeap() throws FileNotFoundException {
+    public void getNewCompactHeap(String destinationFile) throws FileNotFoundException {
         compact=new compactGarbageCollector(heap,roots);
-        this.getNewCompactHeap();
-    }
-
-    public void getNewCompactHeap() throws FileNotFoundException {
         int currentMamoryStart = 0;
         List<String[]> dataLines = new ArrayList<>();
-        File csvOutputFile = new File("Compact_new-heap.csv");
+        File csvOutputFile = new File(destinationFile);
 
 
         for (Map.Entry<Node, ArrayList<Node>> entry : heap.getAdjNodes().entrySet()) {
@@ -75,10 +71,8 @@ public class controller {
                         {String.valueOf(node.getValue()), String.valueOf(currentMamoryStart), String.valueOf(currentMamoryStart + memorySize)});
 
                 currentMamoryStart += memorySize +1;
-
             }
         }
-
         try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
             dataLines.stream()
                     .map(this::convertToCSV)
@@ -89,11 +83,11 @@ public class controller {
 
 
 
-    public void getCopyHeap() throws FileNotFoundException {
+    public void getCopyHeap(String destinationFile) throws FileNotFoundException {
         copy = new copyGarbageCollector(heap,roots);
         Heap newHeap = copy.createHeap();
         List<String[]> dataLines = new ArrayList<>();
-        File csvOutputFile = new File("Copy_new-heap.csv");
+        File csvOutputFile = new File(destinationFile);
 
         for (Map.Entry<Node, ArrayList<Node>> nodeArrayListEntry : newHeap.getAdjNodes().entrySet()) {
             Node node = (Node) ((Map.Entry) nodeArrayListEntry).getKey();
